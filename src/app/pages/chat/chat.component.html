@@ -1,11 +1,39 @@
-<div>
-  <h2>Live-Chat</h2>
+<div class="main">
 
-  <div *ngFor="let msg  of messages">
-    <p> {{ msg }} </p>
+  <div class="main__body">
+  <div class="main__header"><h2 class="main__title">Live-Chat <div class="online"></div></h2></div>
+
+  <div class="main__chat">
+
+    <div class="chat__messages">
+
+      <p class="message-recevied"> TESTE DE MENSAGEM </p>
+      <p class="message-sent"> TESTE DE MENSAGEM </p>
+      <p class="message-sent"> TESTE DE MENSAGEM </p>
+      <p class="message-sent"> TESTE DE MENSAGEM </p>
+      <p class="message-sent"> TESTE DE MENSAGEM </p>
+
+
+
+    </div>
+
+
   </div>
 
-  <input type="text" [(ngModel)]="message" (keyup.enter)="sendMessage()" placeholder="Digite a sua mensagem..." />
-  <button (click)="sendMessage()">Enviar</button>
 
 </div>
+
+</div>
+
+
+
+
+
+
+
+<!-- <div *ngFor="let msg  of messages">
+  <p> {{ msg }} </p>
+</div>
+
+<input type="text" [(ngModel)]="message" (keyup.enter)="sendMessage()" placeholder="Digite a sua mensagem..." />
+<button (click)="sendMessage()">Enviar</button> -->

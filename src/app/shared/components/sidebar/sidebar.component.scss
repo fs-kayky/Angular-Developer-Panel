@@ -1,13 +1,13 @@
 .sidebar {
   display: none;
   position: absolute;
-  width: 20rem;
   left: 0;
   top: 0;
   bottom: 0;
   background-color:#3d3b40;
+  width: 25rem;
   user-select: none;
-  transition: all 0.3s ease-in-out;
+  transition: width 0.3s ease-in-out;
   z-index: 999;
   overflow: hidden;
 
