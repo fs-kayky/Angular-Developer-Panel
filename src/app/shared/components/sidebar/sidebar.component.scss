@@ -1,3 +1,7 @@
+.imgCard {
+  max-height: 250px;
+}
+
 .sidebar {
   display: none;
   position: absolute;
@@ -43,8 +47,39 @@
   &__title {
     font-size: 2rem;
   }
-}
 
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+
+
+    .link__button {
+      padding: 1rem;
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid #ACADAF;
+      color: white;
+      font-size: 1.3rem;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.3s ease-in-out;
+
+      .btn__txt {
+        margin-left: .5rem;
+      }
+
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.5);
+        border-left: 5px solid #4A68FF;
+      }
+    }
+
+
+  }
+
+}
 
 .sidebar__shadow {
   display: none;
@@ -52,6 +87,6 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
+  z-index: 99;
   transition: all 1s ease-in-out;
 }

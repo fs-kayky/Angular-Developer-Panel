@@ -1,5 +1,6 @@
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,8 +14,15 @@ export class SidebarComponent {
   @Input() sidebarState!: boolean;
   @Output() sidebarToggle = new EventEmitter();
 
+  router = inject(Router);
+
   toggle() {
     this.sidebarToggle.emit();
+  }
+
+
+  navigateTo(url: string) {
+    this.router.navigate([url]);
   }
 
 }

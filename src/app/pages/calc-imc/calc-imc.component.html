@@ -1,4 +1,5 @@
 <div class="main">
+  <p-toast />
   <div class="main__content">
     <div class="main__title">
       <h1>Calculadora de IMC</h1>
@@ -6,108 +7,137 @@
     <div class="main__inputs">
       <p-inputGroup class="inputGroup">
         <p-inputGroupAddon>
-          <span class="material-symbols-outlined">altitude</span>
+          <span class="material-symbols-outlined"
+            >altitude</span
+          >
         </p-inputGroupAddon>
         <input
+        class="inputGroup__input"
+        id="height"
           type="number"
-          style="
-            height: 40;
-            width: 20rem;
-            padding: 10px;
-            border: 1px solid #dedddc;
-          "
           pInputText
           placeholder="Altura"
         />
       </p-inputGroup>
       <p-inputGroup class="inputGroup">
         <p-inputGroupAddon>
-          <span class="material-symbols-outlined">scale</span>
+          <span class="material-symbols-outlined"
+            >scale</span
+          >
         </p-inputGroupAddon>
         <input
-          style="
-            height: 40;
-            width: 20rem;
-            padding: 10px;
-            border: 1px solid #dedddc;
-          "
+          class="inputGroup__input"
+          id="weight"
           pInputText
           type="number"
           placeholder="Peso"
         />
       </p-inputGroup>
+      <button (click)="CalculateIMC()" class="button-9" role="button">Calcular IMC</button>
     </div>
 
-    <div class="main__cards">
-
-
-      <div class="card">
-          <p-card class="w-12">
-            <div class="card__body magreza">
-              <h2 class="card__tittle"> Magreza </h2>
+    @if (showCards){
+      <div class="main__cards">
+        <div class="flex">
+          <div class="card">
+            <div class="card__body magreza select">
+              <h2 class="card__tittle">Magreza</h2>
 
               <div class="circle">
                 <i class="pi pi-thumbs-down" style="font-size: 5rem"></i>
               </div>
 
-              <h4 class="card__description">
-                IMC está entre 0 e 18.5
-              </h4>
+              <h4 class="card__description">IMC está entre 0 e 18.5</h4>
             </div>
-          </p-card>
-        </div>
-        <div class="card">
-          <p-card class="w-12">
+          </div>
+          <div class="card">
             <div class="card__body normal">
-              <h2 class="card__tittle"> Normal </h2>
+              <h2 class="card__tittle">Normal</h2>
 
               <div class="circle">
                 <i class="pi pi-thumbs-up" style="font-size: 5rem"></i>
               </div>
 
-              <h4 class="card__description">
-                IMC está entre 18.6 e 24.9
-              </h4>
+              <h4 class="card__description">IMC está entre 18.6 e 24.9</h4>
             </div>
-          </p-card>
+          </div>
         </div>
-      <div class="card">
-        <p-card class="w-12 teste">
-          <div class="card__body sobrepeso">
-            <h2 class="card__tittle"> Sobrepeso </h2>
+        <div class="flex">
+          <div class="card">
+            <div class="card__body sobrepeso">
+              <h2 class="card__tittle">Sobrepeso</h2>
 
-            <div class="circle">
-              <i class="pi pi-thumbs-down" style="font-size: 5rem"></i>
+              <div class="circle">
+                <i class="pi pi-thumbs-down" style="font-size: 5rem"></i>
+              </div>
+
+              <h4 class="card__description">IMC está entre 25 e 30</h4>
             </div>
-
-            <h4 class="card__description">
-              IMC está entre 25 e 30
-            </h4>
           </div>
-        </p-card>
-      </div>
-      <div class="card">
-        <p-card  class="w-12">
-          <div class="card__body obesidade">
-            <h2 class="card__tittle"> Obesidade </h2>
+          <div class="card">
+            <div class="card__body obesidade">
+              <h2 class="card__tittle">Obesidade</h2>
 
-            <div class="circle">
-              <i class="pi pi-thumbs-down" style="font-size: 5rem"></i>
+              <div class="circle">
+                <i class="pi pi-thumbs-down" style="font-size: 5rem"></i>
+              </div>
+
+              <h4 class="card__description">IMC está entre 30.1 e 99</h4>
             </div>
-
-            <h4 class="card__description">
-              IMC está entre 30.1 e 99
-            </h4>
-
           </div>
-        </p-card>
+        </div>
       </div>
+    } @else if (showMagreza) {
 
-
-
-
-
-
+      <div class="card flex justify-content-center">
+        <p-card header="Magreza Excessiva" subheader="Magreza Excessiva também é alerta para a saúde!" [style]="{ width: '360px' }">
+            <ng-template pTemplate="header">
+                <img alt="Card" class="imgCard" src="https://portalmedicinaesaude.com/wp-content/uploads/2023/03/magreza_15_03_OK.jpg" />
+            </ng-template>
+            <p>
+                A magreza excessiva pode ser um sinal de desnutrição ou de algum problema de saúde, como anorexia ou bulimia, por exemplo. Por isso, é importante procurar um médico para avaliar a situação e iniciar o tratamento adequado.
+            </p>
+        </p-card>
     </div>
+
+    } @else if (showNormal) {
+      <div class="card flex justify-content-center">
+        <p-card header="Normal" subheader="Parabéns, se mantenha nesse caminho!" [style]="{ width: '360px' }">
+            <ng-template pTemplate="header">
+                <img alt="Card" class="imgCard" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLuGeDT0wEIhUIVCHrRp1ojZh6jj269k7uQQ&s" />
+            </ng-template>
+            <p>
+              Parabéns! Seu IMC está dentro da faixa considerada normal. Continue assim, mantendo uma alimentação saudável e praticando atividades físicas regularmente.
+            </p>
+        </p-card>
+    </div>
+
+    } @else if (showSobrepeso) {
+      <div class="card flex justify-content-center">
+        <p-card header="Sobrepeso" subheader="Cuidado, sobrepeso gerar problems cardiovaculares, hipertensão e outros! " [style]="{ width: '360px' }">
+            <ng-template pTemplate="header">
+                <img alt="Card" class="imgCard" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdaCBJ6Ox3Fy6Vqb3JwJXPMBc2wzCnHW-5JA&s" />
+            </ng-template>
+            <p>
+              Cuida com o sobrepeso, ele pode agravar problemas cardiovaculares, hipertensão e outros. Procure um médico para avaliar a situação e iniciar o tratamento adequado.
+            </p>
+        </p-card>
+    </div>
+
+    } @else if (showObesidade) {
+
+      <div class="card flex justify-content-center">
+        <p-card header="Obesidade" subheader="Você está muito acima do peso, cuidado!" [style]="{ width: '360px' }">
+            <ng-template pTemplate="header">
+                <img alt="Card" class="imgCard" src="https://www.infoescola.com/wp-content/uploads/2008/06/obesidade_1395587945.jpg" />
+            </ng-template>
+            <p>
+              Cuidado ela te traz a possibilidade de desenvolver diversas doenças crônicas, como hipertensão, diabetes e colesterol alto, além de problemas respiratórios, dificuldade para dormir, sensibilidade nas articulações e dor nas costas
+            </p>
+        </p-card>
+    </div>
+
+    }
+
   </div>
 </div>
