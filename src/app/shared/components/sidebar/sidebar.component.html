@@ -11,7 +11,33 @@
 
   <div class="sidebar__content">
 
+    <button class="link__button" (click)="navigateTo('/')">
+      <div>
+        <i class="pi pi-home"></i>
+        <span class="btn__txt">Home</span>
+      </div>
+    </button>
 
+    <button class="link__button" (click)="navigateTo('/chat')">
+      <div>
+        <i class="pi pi-comments"></i>
+        <span class="btn__txt">LiveChat</span>
+      </div>
+    </button>
+
+    <button class="link__button" (click)="navigateTo('/calc-imc')">
+      <div>
+        <i class="pi pi-calculator"></i>
+        <span class="btn__txt">Calculadora IMC</span>
+      </div>
+    </button>
+
+    <button class="link__button" (click)="navigateTo('/about')">
+      <div>
+        <i class="pi pi-address-book"></i>
+        <span class="btn__txt">About</span>
+      </div>
+    </button>
 
   </div>
 </div>
