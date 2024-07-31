@@ -7,15 +7,20 @@ const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
+
 wss.on('connection', (ws) => {
+
   ws.id = uuid.v4();
+
+  ws.send(JSON.stringify({ type: 'id', id: ws.id }));
+  console.log('Client connected with id: ', ws.id);
+
   ws.on('message', (message) => {
     console.log('Received message: ', message);
 
     wss.clients.forEach((client) => {
       if (client !== ws && client.readyState === WebSocket.OPEN) {
-        console.log('Sending message: ', message, ' to client.id: ', ws.id);
-        client.send(message, ws.id);
+        client.send(message);
       }
     });
   });
