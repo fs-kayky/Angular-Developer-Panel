@@ -1,5 +1,5 @@
 .main {
-  height: calc(100vh - 70px);
+  height: 100%;
   background-color: #23142b;
   color: #fff;
   display: flex;
@@ -26,6 +26,9 @@
   }
 
   &__body {
+    overflow: hidden;
+    min-height: 10vh;
+    max-height: 80vh;
     padding: 30px;
     background-color: #323333;
     width: 40rem;
@@ -33,42 +36,83 @@
     align-items: center;
     flex-direction: column;
     border-radius: 30px;
+
+    .chat__input {
+      padding: 20px;
+      display: flex;
+      gap: 20px;
+      width: 100%;
+      height: 10%;
+      border-radius: 30px;
+
+      input {
+        width: 100%;
+        height: 30px;
+        border-radius: 30px;
+        padding: 10px;
+        border: none;
+        background-color: #686565;
+        color: #000000;
+
+        &::placeholder {
+          color: #000000;
+        }
+
+      }
+
+      button {
+        border: none;
+        background-color: #085c4c;
+        color: #fff;
+        border-radius: 50%;
+        padding: 10px;
+        cursor: pointer;
+      }
+    }
+
   }
 
   &__chat {
     display: flex;
     width: 100%;
-    height: 100%;
+    height: 80%;
     border-radius: 30px;
     flex-direction: column;
+
+    p {
+      margin: 0;
+      display: inline-block;
+    }
 
     .chat__messages {
       z-index: 1;
       color: #fff;
-      display: flex;
       flex-direction: column;
-      gap: 20px;
-      overflow-y: auto;
+      gap: 10px;
+      overflow-y: scroll;
+      overflow-x: hidden;
       height: 100%;
       width: 100%;
 
       .message-recevied {
+        display: flex;
         border: 1px solid #494444;
         background-color: #312f2f;
         border-radius: 20px;
-        text-align: center;
-        padding: 10px;
+        text-align: left;
+        padding: 20px;
         max-width: 70%;
-        align-self: flex-start;
       }
 
       .message-sent {
+        display: flex;
         text-align: center;
         background-color: #085c4c;
         border-radius: 20px;
-        padding: 10px;
+        padding: 20px;
+        flex-wrap: wrap;
+        white-space: wrap;
         max-width: 70%;
-        align-self: flex-end;
       }
 
     }

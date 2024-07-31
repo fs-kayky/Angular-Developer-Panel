@@ -7,11 +7,13 @@ import { Subject } from 'rxjs';
 export class WebSocketService {
   private Socket: WebSocket;
   private messageSubject = new Subject<Blob>();
+  private idSubject = new Subject<Blob>();
 
   constructor() {
     this.Socket = new WebSocket('ws://localhost:3002');
     this.Socket.onmessage = (event) => {
       this.messageSubject.next(event.data);
+      this.idSubject.next(event.data);
     };
   }
 
@@ -21,6 +23,10 @@ export class WebSocketService {
 
   get Messages$() {
     return this.messageSubject.asObservable();
+  }
+
+  get userID$() {
+    return this.idSubject.asObservable();
   }
 
 

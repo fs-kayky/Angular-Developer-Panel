@@ -6,15 +6,21 @@
   <div class="main__chat">
 
     <div class="chat__messages">
+      <div *ngFor="let msg of messages">
 
-      <p class="message-recevied"> TESTE DE MENSAGEM </p>
-      <p class="message-sent"> TESTE DE MENSAGEM </p>
+        @if (msg.sender === 'server') {
+          <p class="message-recevied"> {{msg.content}} </p>
+        } @else {
+          <p class="message-sent"> {{msg.content}} </p>
+        }
 
+      </div>
     </div>
-
-
   </div>
 
+  <div class="chat__input">
+    <input class="text__input" type="text" [(ngModel)]="message" (keyup.enter)="sendMessage()" placeholder="Digite a sua mensagem..." />
+  </div>
 
 </div>
 
