@@ -1,0 +1,123 @@
+
+.main {
+  display: flex;
+  height: calc(100vh - 70px);
+  padding: 30px;
+  justify-content: center;
+  user-select: none;
+  background-color: #403f3e;
+
+
+  &__content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    color: #403f3e;
+    background-color: #fff;
+    border-radius: 20px;
+    height: 50rem;
+    width: 70rem;
+    text-align: center;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    }
+
+  &__inputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+
+  }
+
+  &__cards {
+    height: 100%;
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .card {
+      display: flex;
+      height: 50%;
+      min-width: 49%;
+    }
+
+
+    .card__body {
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      height: 90%;
+      justify-content: space-between;
+      color: #FFF;
+      border-radius: 20px;
+      align-items: center;
+      .circle {
+        display: flex;
+        justify-content: center;
+        border-radius: 50%;
+        padding: 30px;
+        background-color: rgba(210, 210, 210, 0.43);
+      }
+
+    }
+
+  }
+
+  .normal {
+    background-color: #10ac6c;
+    text-align: center;
+  }
+
+  .sobrepeso {
+    background-color: #e8b43c;
+    text-align: center;
+  }
+
+  .obesidade {
+    text-align: center;
+    background-color: #c8443c;
+  }
+
+  .magreza {
+    text-align: center;
+    background-color: #98a4ac;
+  }
+
+
+}
+
+.inputGroup {
+  max-width: 20rem;
+}
+
+
+@media (max-width: 768px) {
+  .main__content {
+    height: 120rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .main__cards {
+    height: 100%;
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .card {
+      display: flex;
+      height: 25%;
+      min-width: 80%;
+      background-color: transparent;
+    }
+
+  }
+
+}

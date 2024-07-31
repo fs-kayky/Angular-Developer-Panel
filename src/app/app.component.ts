@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,5 @@ import { SidebarComponent } from './shared/components/sidebar/sidebar.component'
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-
   sidebarVisible = true;
-
 }

@@ -20,6 +20,11 @@ export const routes: Routes = [
   },
 
   {
+    path: 'calc-imc',
+    loadComponent: () => import('./pages/calc-imc/calc-imc.component').then(m => m.CalcImcComponent)
+  },
+
+  {
     path: '**',
     redirectTo: 'home'
   }
