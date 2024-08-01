@@ -1,0 +1,99 @@
+<main
+  class="flex flex-column align-items-center justify-content-center gap-4 select-none"
+>
+  <div class="flex h-5rem align-items-center justify-content-center header">
+    <h2 class="header__title">Finance Controller</h2>
+  </div>
+
+  <div class="data_view">
+    <div class="date_view">DATA</div>
+
+    <div class="revenues">RECEITAS</div>
+
+    <div class="expenses">DESPESAS</div>
+
+    <div class="balance">SALDO</div>
+  </div>
+
+  <div class="data_view">
+    <p-toast />
+    <div class="data_form" onsubmit="createNewRow()">
+      <div class="flex flex-column gap-1">
+        <label for="icondisplay">Data</label>
+        <p-calendar
+          dateFormat="dd/mm/yy"
+          [(ngModel)]="date"
+          name="dateForm"
+          [iconDisplay]="'input'"
+          [showIcon]="true"
+          inputId="icondisplay"
+          (keyup.enter)="createNewRow()"
+          placeholder="Selecione a Data..."
+        />
+      </div>
+
+      <div class="flex flex-column gap-1">
+        <label for="category">Categoria</label>
+        <p-dropdown
+          [options]="categories"
+          name="categoryForm"
+          [(ngModel)]="selectedCategory"
+          optionLabel="type"
+          placeholder="Selecione a Categoria..."
+          (keyup.enter)="createNewRow()"
+        />
+      </div>
+
+      <div class="flex flex-column gap-1">
+        <label for="minmaxfraction">Valor</label>
+
+        <p-inputNumber
+        [(ngModel)]="value"
+        name="valueForm"
+        inputId="minmaxfraction"
+        mode="currency"
+        currency="BRL"
+        locale="pt-BR"
+        placeholder="Digite o Valor..."
+        (keyup.enter)="createNewRow()"
+        />
+
+      </div>
+
+      <div class="flex flex-column gap-1">
+        <label for="description">Descrição</label>
+        <input type="text" pInputText [(ngModel)]="description" placeholder="Digite a Descrição..." (keyup.enter)="createNewRow()" />
+      </div>
+    </div>
+  </div>
+
+  @if (haveData) {
+    <div class="data_view">
+      <p-table
+      class="w-full"
+    [value]="tableRows"
+    styleClass="p-datatable-striped"
+    [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Data</th>
+                <th>Categoria</th>
+                <th>Valor</th>
+                <th>Descrição</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr>
+                <td>{{product.date}}</td>
+                <td>{{product.category}}</td>
+                <td>{{product.value}}</td>
+                <td>{{product.description}}</td>
+            </tr>
+        </ng-template>
+</p-table>
+
+    </div>
+  }
+
+
+</main>

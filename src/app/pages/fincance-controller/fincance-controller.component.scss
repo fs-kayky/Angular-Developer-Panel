@@ -1,0 +1,28 @@
+.header {
+  width: 95%;
+  margin-top: 15px;
+  background-color: #3f3f66;
+  border-radius: 10px;
+
+  &__title {
+    text-align: center;
+    color: white;
+    font-size: 28px;
+    padding: 15px;
+  }
+}
+
+  .data_view {
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+
+  .data_form {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+  }

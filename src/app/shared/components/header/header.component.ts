@@ -24,9 +24,4 @@ export class HeaderComponent {
 
   }
 
-
-  navigateTo(url: string) {
-    this.router.navigate([url]);
-  }
-
 }

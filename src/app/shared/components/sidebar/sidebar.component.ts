@@ -22,6 +22,7 @@ export class SidebarComponent {
 
 
   navigateTo(url: string) {
+    this.toggle();
     this.router.navigate([url]);
   }
 

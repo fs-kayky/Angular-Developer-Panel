@@ -81,7 +81,6 @@
 
     p {
       margin: 0;
-      display: inline-block;
     }
 
     .chat__messages {
@@ -95,24 +94,37 @@
       width: 100%;
 
       .message-recevied {
+        margin-top: 10px;
         display: flex;
         border: 1px solid #494444;
         background-color: #312f2f;
         border-radius: 20px;
-        text-align: left;
         padding: 20px;
         max-width: 70%;
       }
 
       .message-sent {
-        display: flex;
-        text-align: center;
+        margin-top: 5px;
         background-color: #085c4c;
         border-radius: 20px;
         padding: 20px;
         flex-wrap: wrap;
         white-space: wrap;
         max-width: 70%;
+      }
+
+      .message-sent__container {
+        display: flex;
+        align-items: center;
+        justify-content: right;
+        width: 90%;
+      }
+
+      .message-recevied__container {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        width: 90%;
       }
 
     }
