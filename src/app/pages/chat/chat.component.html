@@ -9,9 +9,14 @@
       <div *ngFor="let msg of messages">
 
         @if (msg.sender === 'server') {
-          <p class="message-recevied"> {{msg.content}} </p>
+          <div class="message-recevied__container">
+            <p class="message-recevied"> {{msg.content}} </p>
+          </div>
+
         } @else {
-          <p class="message-sent"> {{msg.content}} </p>
+          <div class="message-sent__container">
+            <p class="message-sent"> {{msg.content}} </p>
+          </div>
         }
 
       </div>

@@ -25,6 +25,17 @@ export const routes: Routes = [
   },
 
   {
+    path: 'finances',
+    loadComponent: () => import('./pages/fincance-controller/fincance-controller.component').then(m => m.FincanceControllerComponent)
+  },
+
+  {
+    path: 'organograma',
+    loadComponent: () => import('./pages/org-tech/org-tech.component').then(m => m.OrgTechComponent)
+  },
+
+
+  {
     path: '**',
     redirectTo: 'home'
   }
