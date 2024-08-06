@@ -1,6 +1,87 @@
 <main
   class="flex flex-column align-items-center justify-content-center gap-4 select-none"
 >
+
+<p-dialog header="Editar entrada" [modal]="true" [(visible)]="dialogEditDisplay" [style]="{ width: '50m' }">
+  <span class="p-text-secondary block mb-5">Atualize suas informações</span>
+  <div class="flex align-items-center gap-3 mb-3">
+      <label for="username" class="font-semibold w-6rem">Data</label>
+
+      <div class="flex flex-column gap-1">
+        <label for="icondisplay">Data</label>
+
+        <p-calendar
+          [style]="{ width: '30rem' }"
+          dateFormat="dd/mm/yy"
+          [(ngModel)]="editObject.date"
+          name="dateForm"
+          [iconDisplay]="'input'"
+          [showIcon]="true"
+          inputId="icondisplay"
+          placeholder="Selecione a Data..."
+          focusTrap="false"
+        />
+      </div>
+
+    </div>
+  <div class="flex align-items-center gap-3 mb-5">
+      <label for="email" class="font-semibold w-6rem">Categoria</label>
+
+      <div class="flex flex-column gap-1">
+        <label for="category">Categoria</label>
+        <p-dropdown
+          [style]="{ width: '30rem' }"
+          [options]="categories"
+          name="categoryForm"
+          [(ngModel)]="selectedCategoryEdit"
+          optionLabel="type"
+          placeholder="Selecione a Categoria..."
+        />
+      </div>
+
+    </div>
+
+  <div class="flex align-items-center gap-3 mb-5">
+    <label for="email" class="font-semibold w-6rem">Valor</label>
+
+    <div class="flex flex-column gap-1">
+      <label for="minmaxfraction">Valor</label>
+
+      <p-inputNumber
+      [style]="{ width: '30rem' }"
+      [(ngModel)]="editObject.value"
+      name="valueForm"
+      inputId="minmaxfraction"
+      mode="currency"
+      currency="BRL"
+      locale="pt-BR"
+      placeholder="Digite o Valor..."
+      />
+
+    </div>
+</div>
+
+<div class="flex align-items-center gap-3 mb-5">
+  <label for="email" class="font-semibold w-6rem">Descrição</label>
+
+  <div class="flex flex-column gap-1">
+    <div class="flex flex-column gap-1">
+      <label for="description">Descrição</label>
+
+      <input [style]="{width: '30rem'}" type="text" pInputText [(ngModel)]="editObject.description" placeholder="Digite a Descrição..." />
+
+    </div>
+    </div>
+</div>
+
+
+  <div class="flex justify-content-end gap-2">
+      <p-button label="Cancel" severity="secondary" (onClick)="dialogEditDisplay = false" />
+      <p-button label="Save" (onClick)="editProduct()" (onClick)="dialogEditDisplay = false" />
+  </div>
+</p-dialog>
+
+
   <div class="flex h-5rem align-items-center justify-content-center header">
     <h2 class="header__title">Finance Controller</h2>
   </div>
@@ -80,14 +161,19 @@
                 <th>Categoria</th>
                 <th>Valor</th>
                 <th>Descrição</th>
+                <th class="text-center">Ações</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-product>
             <tr>
-                <td>{{product.date}}</td>
-                <td>{{product.category}}</td>
-                <td>{{product.value}}</td>
+                <td>{{formatDate(product.date)}}</td>
+                <td> <p-tag [severity]='getSeverity(product.categoryType)' [value]='product.category' /> </td>
+                <td>R$ {{product.value}}</td>
                 <td>{{product.description}}</td>
+                <td class="flex gap-1 justify-content-center">
+                  <p-button icon="pi pi-pencil" [rounded]="true" severity="info" (onClick)='showDialog(product.id)' />
+                  <p-button icon="pi pi-times" [rounded]="true" severity="danger" (onClick)='removeProduct(product.id)'/>
+                </td>
             </tr>
         </ng-template>
 </p-table>
