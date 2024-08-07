@@ -20,7 +20,6 @@ export class ChatComponent {
 
   constructor(private WebSocketService: WebSocketService) {
 
-
     this.WebSocketService.Messages$.subscribe((blob: any) => {
       if (blob instanceof Blob) {
         blob.text().then((message) => {

@@ -29,5 +29,4 @@ export class WebSocketService {
     return this.idSubject.asObservable();
   }
 
-
 }
