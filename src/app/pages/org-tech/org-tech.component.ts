@@ -1,143 +1,190 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { OrganizationChartModule } from 'primeng/organizationchart';
-import { TreeNode } from 'primeng/api';
+import { MessageService, TreeNode } from 'primeng/api';
+import { TabViewModule } from 'primeng/tabview';
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { MenuItem } from 'primeng/api';
+
+const dianaData: TreeNode[] = [
+
+];
+
 @Component({
   selector: 'app-org-tech',
   standalone: true,
-  imports: [OrganizationChartModule],
+  imports: [
+    TabMenuModule,
+    OrganizationChartModule,
+    TabViewModule,
+    CommonModule,
+    DialogModule,
+    InputTextModule,
+    ButtonModule,
+    ToastModule,
+    FormsModule,
+  ],
+  providers: [MessageService],
   templateUrl: './org-tech.component.html',
   styleUrl: './org-tech.component.scss',
 })
-export class OrgTechComponent {
-  selectedNodes!: TreeNode[];
+export class OrgTechComponent implements OnInit {
+  private http = inject(HttpClient);
 
-  data: TreeNode[] = [
-    {
-      expanded: true,
-      type: 'person',
-      data: {
-        image:
-          'https://media.licdn.com/dms/image/D4D35AQEmrJ3oNMu-Iw/profile-framedphoto-shrink_800_800/0/1721755984611?e=1723572000&v=beta&t=y2xsCm5bAMF8ICDbYSIjFgVQntiY9Cx6K_Gcra1hIJ8',
-        name: 'Felipe Barbosa',
-        title: 'CEO',
-      },
-      children: [
-        {
-          label: 'Tecnologia',
-          children: [
-            {
-              expanded: true,
-              type: 'person',
-              data: {
-                image:
-                  'https://media.licdn.com/dms/image/C4D03AQFn2UOPFTbLmQ/profile-displayphoto-shrink_800_800/0/1618924385570?e=1728518400&v=beta&t=B9IcPxr2W8hMdMplpZoY_PqFknd7sU9CeQoj5b7GR2s',
-                name: 'Diana Serrano',
-                title: 'Gerente de Tecnologia',
-              },
-              children: [
-                {
-                  label: 'B.I',
-                  children: [
-                    {
-                      expanded: true,
-                      type: 'person',
-                      data: {
-                        image:
-                          'https://media.licdn.com/dms/image/C4E03AQHU4HEjY6H5lQ/profile-displayphoto-shrink_800_800/0/1655321771989?e=1728518400&v=beta&t=RnQ-55IPK8ZXUDaguLV_UpwDpeOsqYMkjlHh-oqvGxQ',
-                        name: 'Edward Booth',
-                        title: 'Analista de B.I',
+  data!: TreeNode[] | [];
 
-                      },
-                      children: [
-                        {
-                          expanded: true,
-                          type: 'person',
-                          data: {
-                            image:
-                              'https://media.licdn.com/dms/image/C4D03AQFt65miAp6lEA/profile-displayphoto-shrink_800_800/0/1598402284276?e=1728518400&v=beta&t=BVTXh-9lhBO5exLrsZyZWGlpKWlmxW0MDDIatGLm1oM',
-                            name: 'Eduardo Novelino',
-                            title: 'Estaigiário de B.I',
-                          }
-                        },
-                        {
-                          expanded: true,
-                          type: 'person',
-                          data: {
-                            image:
-                              'https://media.licdn.com/dms/image/D4E03AQEtljWHP9AnOQ/profile-displayphoto-shrink_800_800/0/1721253986800?e=1728518400&v=beta&t=bDxsYq8_jKqYZAa3WFFYc2pjcxPx23jUfMx52OmaBKY',
-                            name: 'Mateus Restier',
-                            title: 'Estaigiário de B.I',
-                          }
-                        }
-                      ],
-                    },
-                    {
-                      expanded: true,
-                      type: 'person',
-                      data: {
-                        image:
-                          'https://media.licdn.com/dms/image/C4E03AQER65m1u2IWyw/profile-displayphoto-shrink_800_800/0/1662004173100?e=1728518400&v=beta&t=s8uA65KFx8m2aDCb7tKuMA7_G45x5C3HMv338uGo_4s',
-                        name: 'Gabriel Costa',
-                        title: 'Analista de B.I',
-                      },
-                    },
-                  ],
-                },
-                {
-                  label: 'Desenvolvimento',
-                  children: [
-                    {
-                      expanded: true,
-                      type: 'person',
-                      data: {
-                          image: 'https://media.licdn.com/dms/image/D4D03AQGJ0U0OC-AqqA/profile-displayphoto-shrink_800_800/0/1678276189813?e=1728518400&v=beta&t=oqHsYq0M7i1W8MZ2LNPoNuGJo53ydfvlG6A3Hy9LVOU',
-                          name: 'Edvan de Souza',
-                          title: 'Analista de desenvolvimento'
-                      },
-                      children: [
+  actualNodes!: TreeNode[];
+  actualData: any = [];
 
-                      ]
-                    },
-                    {
-                      expanded: true,
-                      type: 'person',
-                      data: {
-                          image: 'https://media.licdn.com/dms/image/D4D03AQF-wqFZZSAQsA/profile-displayphoto-shrink_800_800/0/1715373805720?e=1728518400&v=beta&t=rQVLirSp5G231AhMRgqwjyS5uKWhS2MuzRZJ0miVU90',
-                          name: 'Patrick Anjos',
-                          title: 'Analista de desenvolvimento'
-                      },
-                      children: [
-                        {
-                          expanded: true,
-                          type: 'person',
-                          data: {
-                            image: 'https://media.licdn.com/dms/image/D4E03AQGxdUQ2FVd4DQ/profile-displayphoto-shrink_800_800/0/1721179715784?e=1728518400&v=beta&t=PGT6IKuFEzLeXvDcVAwJxpx1XAa-8wXzXbr_EpNTbyc',
-                            name: 'Kayky Rodrigues',
-                            title: 'Estagiário Web'
-                          }
-                        },
-                        {
-                          expanded: true,
-                          type: 'person',
-                          data: {
-                            image: 'https://media.licdn.com/dms/image/D4D03AQHgjBbOGLsCig/profile-displayphoto-shrink_800_800/0/1678555371145?e=1728518400&v=beta&t=MOFCdzoKfdd20nHENZbPcHdKcaDEhQmVq09ZDjxJHv8',
-                            name: 'Witor Oliveira',
-                            title: 'Estagiário Web'
-                          }
-                        }
-                      ]
-                  },
-                  ],
-                },
-                {
-                  label: 'Infraestrutura',
-                  children: [],
-                }
-              ],
-            }
-          ]
+  visible: boolean = false;
+  actualParentName!: string;
+  actualParenteNode!: TreeNode;
+
+  imgValue: string = '';
+  nameValue: string = '';
+  titleValue: string = '';
+
+  constructor(private messageService: MessageService) {}
+
+  items: MenuItem[] | undefined;
+
+  activeItem: MenuItem | undefined;
+
+  onActiveItemChange(event: any) {
+    this.getSector(event?.label, event?.subLabel);
+    this.iterateEvaluationStatus(this.actualData);
+    this.activeItem = event;
+  }
+
+  async ngOnInit() {
+    this.items = [
+      { label: 'DESENVOLVIMENTO', icon: 'pi pi-home', subLabel: 'TECNOLOGIA' },
+      { label: 'BI', icon: 'pi pi-chart-line',  subLabel: 'TECNOLOGIA' },
+      { label: 'INFRA', icon: 'pi pi-list', subLabel: 'TECNOLOGIA'},
+      { label: 'DEPARTAMENTO PESSOAL', icon: 'pi pi-list', subLabel: 'RH'},
+      { label: 'GENTE&GESTAO', icon: 'pi pi-list', subLabel: 'RH'},
+    ];
+
+    this.activeItem = this.items[0];
+
+    await new Promise((resolve, _) => {
+      this.http
+        .get(
+          'https://9b408944-f0c1-4bf9-b0e5-f1fafedd31fd-00-2jngfbqo2ruj7.picard.replit.dev'
+        )
+        .subscribe({
+          next: (data: any) => {
+            this.data = data;
+            this.getSector('DESENVOLVIMENTO', 'TECNOLOGIA');
+            this.iterateEvaluationStatus(this.actualData);
+          },
+          error: (error: any) => {
+            console.log('DEU BOMBA');
+            this.actualData = [];
+          },
+        });
+    });
+
+  }
+
+  private applyStatus(node: TreeNode): void {
+    if (node.data.evaluationStatus) {
+      node.styleClass = 'bg-green-200';
+    } else {
+      node.styleClass = 'bg-yellow-200';
+    }
+  }
+
+  private showError(message: string) {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: message,
+    });
+  }
+
+  getSector(sectorName: string, gestorSectorName: string) {
+    this.data.filter((node: any) => {
+      if (node.data.sector === gestorSectorName) {
+        this.actualData = [];
+        this.actualData.push({...node});
+        const teste: any = node.children.filter((child: any) => {
+          if (child.data.sector === sectorName) {
+            return child;
+          }
+        });
+        if (teste) {
+          this.actualData[0].children = [];
+          this.actualData[0].children.push(...teste);
+        }
+      }
+    });
+  }
+
+  showDialog() {
+    this.visible = true;
+  }
+
+  createChildNode() {
+    if (this.actualParenteNode) {
+      this.actualParenteNode.children?.push({
+        styleClass: '',
+        expanded: true,
+        type: 'person',
+        data: {
+          role:
+            this.actualParenteNode.data.role === 'analista'
+              ? 'estagiario'
+              : 'analista',
+          image: `${this.imgValue}`,
+          name: `${this.nameValue}`,
+          title: `${this.titleValue}`,
+          evaluationStatus: false,
         },
-      ],
-    },
-  ];
+        children: [],
+      });
+      this.iterateEvaluationStatus(this.actualData);
+      this.visible = false;
+      this.actualParentName = '';
+      this.imgValue = '';
+      this.nameValue = '';
+      this.titleValue = '';
+    }
+  }
+
+  handleCollaboratorClick(node: TreeNode): void {
+    if (node.data.role === 'estagiario') {
+      this.showError('Estagiário não podem ter subordinados!');
+    } else {
+      this.actualParenteNode = node;
+      this.actualParentName = node.data.name;
+      this.showDialog();
+    }
+  }
+
+  private iterateEvaluationStatus(nodes: TreeNode[]): void {
+    console.log(nodes);
+
+    if (this.actualData) {
+      this.actualData.map((node: any) => {
+        this.applyStatus(node);
+        if (node.children.length > 0) {
+          node.children.map((child: any) => {
+            this.applyStatus(child);
+            if (child.children.length > 0) {
+              child.children.map((child2: any) => {
+                this.applyStatus(child2);
+              });
+            }
+          });
+        }
+      });
+    }
+  }
 }

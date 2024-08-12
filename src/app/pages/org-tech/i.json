@@ -1,0 +1,190 @@
+
+const data: TreeNode[] = [
+  {
+    styleClass: '',
+    expanded: true,
+    type: 'person',
+    data: {
+      role: 'gerente',
+      image:
+        'https: //media.licdn.com/dms/image/C4D03AQFn2UOPFTbLmQ/profile-displayphoto-shrink_800_800/0/1618924385570?e=1728518400&v=beta&t=B9IcPxr2W8hMdMplpZoY_PqFknd7sU9CeQoj5b7GR2s',
+      name: 'Diana Serrano',
+      title: 'Gerente de Tecnologia',
+      evaluationStatus: false,
+    },
+    children: [
+      {
+        styleClass: '',
+        expanded: true,
+        type: 'person',
+        data: {
+          role: 'analista',
+          image:
+            'https: //media.licdn.com/dms/image/D4D03AQGJ0U0OC-AqqA/profile-displayphoto-shrink_800_800/0/1678276189813?e=1728518400&v=beta&t=oqHsYq0M7i1W8MZ2LNPoNuGJo53ydfvlG6A3Hy9LVOU',
+          name: 'Edvan de Souza',
+          title: 'Analista de desenvolvimento',
+          evaluationStatus: false,
+        },
+        children: [],
+      },
+      {
+        styleClass: '',
+        expanded: true,
+        type: 'person',
+        data: {
+          role: 'analista',
+          image:
+            'https: //media.licdn.com/dms/image/D4D03AQF-wqFZZSAQsA/profile-displayphoto-shrink_800_800/0/1715373805720?e=1728518400&v=beta&t=rQVLirSp5G231AhMRgqwjyS5uKWhS2MuzRZJ0miVU90',
+          name: 'Patrick Anjos',
+          title: 'Analista de desenvolvimento',
+          evaluationStatus: false,
+        },
+        children: [
+          {
+            styleClass: '',
+            expanded: true,
+            type: 'person',
+            data: {
+              role: 'estagiario',
+              image:
+                'https: //media.licdn.com/dms/image/D4E03AQGxdUQ2FVd4DQ/profile-displayphoto-shrink_800_800/0/1721179715784?e=1728518400&v=beta&t=PGT6IKuFEzLeXvDcVAwJxpx1XAa-8wXzXbr_EpNTbyc',
+              name: 'Kayky Rodrigues',
+              title: 'Estagiário Web',
+              evaluationStatus: false,
+            },
+          },
+          {
+            styleClass: '',
+            expanded: true,
+            type: 'person',
+            data: {
+              role: 'estagiario',
+              image:
+                'https: //media.licdn.com/dms/image/D4D03AQHgjBbOGLsCig/profile-displayphoto-shrink_800_800/0/1678555371145?e=1728518400&v=beta&t=MOFCdzoKfdd20nHENZbPcHdKcaDEhQmVq09ZDjxJHv8',
+              name: 'Witor Oliveira',
+              title: 'Estagiário Web',
+              evaluationStatus: false,
+            },
+          },
+        ],
+      },
+      {
+        styleClass: '',
+        expanded: true,
+        type: 'person',
+        data: {
+          role: 'analista',
+          image:
+            'https: //media.licdn.com/dms/image/D4D03AQGJ0U0OC-AqqA/profile-displayphoto-shrink_800_800/0/1678276189813?e=1728518400&v=beta&t=oqHsYq0M7i1W8MZ2LNPoNuGJo53ydfvlG6A3Hy9LVOU',
+          name: 'Edward Booth',
+          title: 'Analista de B.I',
+          evaluationStatus: false,
+        },
+        children: [
+          {
+            styleClass: '',
+            expanded: true,
+            type: 'person',
+            data: {
+              role: 'estagiario',
+              image:
+                'https: //media.licdn.com/dms/image/D4D03AQHgjBbOGLsCig/profile-displayphoto-shrink_800_800/0/1678555371145?e=1728518400&v=beta&t=MOFCdzoKfdd20nHENZbPcHdKcaDEhQmVq09ZDjxJHv8',
+              name: 'Elton Marinho',
+              title: 'Estagiário B.I',
+              evaluationStatus: false,
+            },
+          },
+          {
+            styleClass: '',
+            expanded: true,
+            type: 'person',
+            data: {
+              role: 'estagiario',
+              image:
+                'https: //media.licdn.com/dms/image/D4D03AQHgjBbOGLsCig/profile-displayphoto-shrink_800_800/0/1678555371145?e=1728518400&v=beta&t=MOFCdzoKfdd20nHENZbPcHdKcaDEhQmVq09ZDjxJHv8',
+              name: 'Mateus Restier',
+              title: 'Estagiário B.I',
+              evaluationStatus: false,
+            },
+          },
+        ],
+      },
+    ],
+  },
+  {
+    styleClass: '',
+    expanded: true,
+    type: 'person',
+    data: {
+      role: 'gerente',
+      image:
+        'https: //media.licdn.com/dms/image/C4D03AQFn2UOPFTbLmQ/profile-displayphoto-shrink_800_800/0/1618924385570?e=1728518400&v=beta&t=B9IcPxr2W8hMdMplpZoY_PqFknd7sU9CeQoj5b7GR2s',
+      name: 'Aline Ferraz',
+      title: 'Gerente RH',
+      sector: 'RH'
+      evaluationStatus: false,
+    },
+    children: [
+      {
+        styleClass: '',
+        expanded: true,
+        type: 'person',
+        data: {
+          role: 'analista',
+          image:
+            'https: //media.licdn.com/dms/image/D4D03AQGJ0U0OC-AqqA/profile-displayphoto-shrink_800_800/0/1678276189813?e=1728518400&v=beta&t=oqHsYq0M7i1W8MZ2LNPoNuGJo53ydfvlG6A3Hy9LVOU',
+          name: 'Alexia Moura',
+          evaluationStatus: false,
+          title: 'Analista DP',
+          sector: 'DEPARTAMENTO PESSOAL'
+        },
+        children: [],
+      },
+      {
+        styleClass: '',
+        expanded: true,
+        type: 'person',
+        data: {
+          role: 'analista',
+          image:
+            'https: //media.licdn.com/dms/image/D4D03AQF-wqFZZSAQsA/profile-displayphoto-shrink_800_800/0/1715373805720?e=1728518400&v=beta&t=rQVLirSp5G231AhMRgqwjyS5uKWhS2MuzRZJ0miVU90',
+          name: 'Rafael Araujo',
+          evaluationStatus: false,
+                    title: 'Analista DP',
+          sector: 'DEPARTAMENTO PESSOAL'
+        },
+        children: [],
+      },
+      {
+        styleClass: '',
+        expanded: true,
+        type: 'person',
+        data: {
+          role: 'analista',
+          image:
+            'https: //media.licdn.com/dms/image/D4D03AQF-wqFZZSAQsA/profile-displayphoto-shrink_800_800/0/1715373805720?e=1728518400&v=beta&t=rQVLirSp5G231AhMRgqwjyS5uKWhS2MuzRZJ0miVU90',
+          name: 'Diana Dumas',
+          evaluationStatus: false,
+          title: 'ANALISTA DE G&G',
+          sector: 'GENTE&GESTAO'
+        },
+        children: [],
+      },
+      {
+        styleClass: '',
+        expanded: true,
+        type: 'person',
+        data: {
+          role: 'analista',
+          image:
+            'https: //media.licdn.com/dms/image/D4D03AQF-wqFZZSAQsA/profile-displayphoto-shrink_800_800/0/1715373805720?e=1728518400&v=beta&t=rQVLirSp5G231AhMRgqwjyS5uKWhS2MuzRZJ0miVU90',
+          name: 'Marcos Santos',
+          evaluationStatus: false,
+                    title: 'ANALISTA DE G&G',
+          sector: 'GENTE&GESTAO'
+        },
+        children: [],
+      }
+    ]
+  }
+];
