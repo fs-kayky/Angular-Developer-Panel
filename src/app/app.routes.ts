@@ -33,6 +33,10 @@ export const routes: Routes = [
     path: 'organograma',
     loadComponent: () => import('./pages/org-tech/org-tech.component').then(m => m.OrgTechComponent)
   },
+  {
+    path: 'avd-form',
+    loadComponent: () => import('./pages/avd-form/avd-form.component').then(m => m.AvdFormComponent)
+  },
 
 
   {

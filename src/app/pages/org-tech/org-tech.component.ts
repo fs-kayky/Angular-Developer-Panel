@@ -12,9 +12,7 @@ import { HttpClient } from '@angular/common/http';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { MenuItem } from 'primeng/api';
 
-const dianaData: TreeNode[] = [
-
-];
+const dianaData: TreeNode[] = [];
 
 @Component({
   selector: 'app-org-tech',
@@ -65,10 +63,10 @@ export class OrgTechComponent implements OnInit {
   async ngOnInit() {
     this.items = [
       { label: 'DESENVOLVIMENTO', icon: 'pi pi-home', subLabel: 'TECNOLOGIA' },
-      { label: 'BI', icon: 'pi pi-chart-line',  subLabel: 'TECNOLOGIA' },
-      { label: 'INFRA', icon: 'pi pi-list', subLabel: 'TECNOLOGIA'},
-      { label: 'DEPARTAMENTO PESSOAL', icon: 'pi pi-list', subLabel: 'RH'},
-      { label: 'GENTE&GESTAO', icon: 'pi pi-list', subLabel: 'RH'},
+      { label: 'BI', icon: 'pi pi-chart-line', subLabel: 'TECNOLOGIA' },
+      { label: 'INFRA', icon: 'pi pi-list', subLabel: 'TECNOLOGIA' },
+      { label: 'DEPARTAMENTO PESSOAL', icon: 'pi pi-list', subLabel: 'RH' },
+      { label: 'GENTE&GESTAO', icon: 'pi pi-list', subLabel: 'RH' },
     ];
 
     this.activeItem = this.items[0];
@@ -90,7 +88,6 @@ export class OrgTechComponent implements OnInit {
           },
         });
     });
-
   }
 
   private applyStatus(node: TreeNode): void {
@@ -113,7 +110,7 @@ export class OrgTechComponent implements OnInit {
     this.data.filter((node: any) => {
       if (node.data.sector === gestorSectorName) {
         this.actualData = [];
-        this.actualData.push({...node});
+        this.actualData.push({ ...node });
         const teste: any = node.children.filter((child: any) => {
           if (child.data.sector === sectorName) {
             return child;
