@@ -1,7 +1,8 @@
 <div class="full-page">
   <p-toast />
+
   <p-dialog
-    header="Deseja criar um filho direto de {{ actualParentName }}?"
+    header="Deseja criar um filho direto de {{ actualParentName }} ou editar?"
     [modal]="true"
     [(visible)]="visible"
     [style]="{ width: '25rem' }"
@@ -40,13 +41,106 @@
     </div>
     <div class="flex justify-content-end gap-2">
       <p-button
-        label="Cancelar"
-        severity="secondary"
-        (onClick)="visible = false"
+      label="Deletar"
+      severity="warning"
+      (onClick)="deleteNode()"
+    />
+      <p-button
+        label="Editar"
+        severity="info"
+        (onClick)="handleEditClick()"
       />
       <p-button label="Criar" (onClick)="createChildNode()" />
     </div>
   </p-dialog>
+
+    <p-dialog
+    header="Deseja editar ou deletar {{ actualNodeName }}?"
+    [modal]="true"
+    [(visible)]="visibleInterns"
+    [style]="{ width: '25rem' }"
+  >
+
+    <div class="flex justify-content-end gap-2 mt-4">
+      <p-button
+        label="Cancelar"
+        severity="secondary"
+        (onClick)="visible = false"
+      />
+      <p-button
+      label="Deletar"
+      severity="warning"
+      (onClick)="deleteNode()"
+    />
+      <p-button label="Editar" (onClick)="handleEditClick()" />
+    </div>
+  </p-dialog>
+
+  <p-dialog
+  header="Editando {{ actualNodeName }} ..."
+  [modal]="true"
+  [(visible)]="editDialog"
+  [style]="{ width: '25rem' }"
+>
+  <span class="p-text-secondary block mb-5"></span>
+  <div class="flex align-items-center gap-3 mb-3">
+    <label for="name" class="font-semibold w-6rem">Nome: </label>
+    <input
+      pInputText
+      id="name"
+      class="flex-auto"
+      autocomplete="off"
+      [(ngModel)]="ediNametValue"
+    />
+  </div>
+  <div class="flex align-items-center gap-3 mb-5">
+    <label for="email" class="font-semibold w-6rem">Cargo: </label>
+    <input
+      pInputText
+      id="email"
+      class="flex-auto"
+      autocomplete="off"
+      [(ngModel)]="editTitleValue"
+    />
+  </div>
+  <div class="flex align-items-center gap-3 mb-5">
+    <label for="email" class="font-semibold w-6rem">Role: </label>
+    <input
+      pInputText
+      id="email"
+      class="flex-auto"
+      autocomplete="off"
+      [(ngModel)]="editRoleValue"
+    />
+  </div>
+
+  <div class="flex align-items-center gap-3 mb-5">
+    <label for="img" class="font-semibold w-6rem">imgUrl: </label>
+    <input
+      pInputText
+      type="text"
+      id="img"
+      class="flex-auto"
+      autocomplete="off"
+      [(ngModel)]="editImgValue"
+    />
+  </div>
+  <div class="flex justify-content-end gap-2">
+    <p-button
+    label="Deletar"
+    severity="warning"
+    (onClick)="deleteNode()"
+  />
+    <p-button
+      label="Cancelar"
+      severity="secondary"
+      (onClick)="visible = false"
+    />
+    <p-button label="Criar" (onClick)="editNode()" />
+  </div>
+</p-dialog>
+
+
 
   <div class="card p-4">
 

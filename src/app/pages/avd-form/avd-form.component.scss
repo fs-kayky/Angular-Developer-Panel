@@ -1,11 +1,15 @@
 .card {
-  background-color: rgb(255, 255, 255);
+  background-color:#fff;
   border-radius: 20px;
   height: 30rem;
 }
 
 .card__teste {
   width: 100%;
+}
+
+.cardteste {
+  border: 1px solid red;
 }
 
 .teste {
@@ -16,3 +20,4 @@
   border: 1px solid red;
   width: 100%;
 }
+

@@ -1,5 +1,6 @@
 <div
-  class="flex align-items-center flex-column gap-4 p-7"
+  class="flex align-items-center flex-column gap-4 p-7 bg-
+  bg-black-alpha-90"
 >
   <div class="w-5 p-5 card flex flex-column justify-content-around">
     <div>
@@ -70,12 +71,12 @@
   <button (click)="showCategories()">SHOW</button>
 
   <div class="flex flex-column gap-5">
-    <div>
+    <div class="flex border-1 flex-column">
       <label for="card" class="text-200 text-3xl"
         >Digite a sua resenha sobre o Funcionario:
       </label>
-      <div class="card" id="card">
-        <p-editor [(ngModel)]="text" [style]="{ height: '320px' }" />
+      <div class="cardteste" id="card">
+        <p-editor [(ngModel)]="text" [style]="{ height: '320px'}" />
       </div>
     </div>
 
@@ -84,7 +85,7 @@
         >Digite oq tiver na sua cabeça:
       </label>
       <div class="card__teste" id="card">
-        <p-editor [(ngModel)]="text" class="border-500" [style]="{ height: '320px'}" />
+        <p-editor [(ngModel)]="text" [style]="{ height: '320px'}" />
       </div>
     </div>
   </div>

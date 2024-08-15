@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { MenuItem } from 'primeng/api';
+import { ITreeNode } from '../../../interfaces/ITreeNode';
 
 const dianaData: TreeNode[] = [];
 
@@ -35,18 +36,27 @@ const dianaData: TreeNode[] = [];
 export class OrgTechComponent implements OnInit {
   private http = inject(HttpClient);
 
-  data!: TreeNode[] | [];
+  data!: ITreeNode[] | [];
 
-  actualNodes!: TreeNode[];
+  actualNodes!: ITreeNode[];
   actualData: any = [];
+  actualNode!: ITreeNode;
+  actualNodeName!: string;
 
   visible: boolean = false;
+  visibleInterns: boolean = false;
+  editDialog: boolean = false;
   actualParentName!: string;
-  actualParenteNode!: TreeNode;
+  actualParenteNode!: ITreeNode;
 
   imgValue: string = '';
   nameValue: string = '';
   titleValue: string = '';
+
+  ediNametValue: string = '';
+  editImgValue: string = '';
+  editTitleValue: string = '';
+  editRoleValue: string = '';
 
   constructor(private messageService: MessageService) {}
 
@@ -91,74 +101,187 @@ export class OrgTechComponent implements OnInit {
   }
 
   private applyStatus(node: TreeNode): void {
-    if (node.data.evaluationStatus) {
+    if (node.data && node.data.evaluationStatus) {
       node.styleClass = 'bg-green-200';
     } else {
       node.styleClass = 'bg-yellow-200';
     }
   }
 
-  private showError(message: string) {
-    this.messageService.add({
-      severity: 'error',
-      summary: 'Error',
-      detail: message,
-    });
-  }
-
   getSector(sectorName: string, gestorSectorName: string) {
-    this.data.filter((node: any) => {
-      if (node.data.sector === gestorSectorName) {
-        this.actualData = [];
-        this.actualData.push({ ...node });
-        const teste: any = node.children.filter((child: any) => {
-          if (child.data.sector === sectorName) {
-            return child;
+    if (typeof this.data != 'undefined') {
+      this.data.filter((node: any) => {
+        if (node.data.sector === gestorSectorName) {
+          this.actualData = [];
+          this.actualData.push({ ...node });
+          const teste: any = node.children.filter((child: any) => {
+            if (child.data.sector === sectorName) {
+              return child;
+            }
+          });
+          if (teste) {
+            this.actualData[0].children = [];
+            this.actualData[0].children.push(...teste);
           }
-        });
-        if (teste) {
-          this.actualData[0].children = [];
-          this.actualData[0].children.push(...teste);
         }
-      }
-    });
+      });
+    }
   }
 
   showDialog() {
     this.visible = true;
   }
 
-  createChildNode() {
-    if (this.actualParenteNode) {
-      this.actualParenteNode.children?.push({
-        styleClass: '',
-        expanded: true,
-        type: 'person',
-        data: {
-          role:
-            this.actualParenteNode.data.role === 'analista'
-              ? 'estagiario'
-              : 'analista',
-          image: `${this.imgValue}`,
-          name: `${this.nameValue}`,
-          title: `${this.titleValue}`,
-          evaluationStatus: false,
-        },
-        children: [],
+  handleEditClick() {
+    this.visible = false;
+    this.visibleInterns = false;
+    this.editDialog = true;
+
+    this.ediNametValue = '';
+    this.editImgValue = '';
+    this.editTitleValue = '';
+    this.editRoleValue = '';
+  }
+
+  async editNode() {
+    if (this.actualNode) {
+      let name = this.actualNode.data.name;
+      let image = this.actualNode.data.image;
+      let title = this.actualNode.data.title;
+      let role = this.actualNode.data.role;
+
+      if (this.ediNametValue) {
+        name = this.ediNametValue;
+      }
+
+      if (this.editImgValue) {
+        image = this.editImgValue;
+      }
+
+      if (this.editTitleValue) {
+        title = this.editTitleValue;
+      }
+
+      if (this.editRoleValue) {
+        role = this.editRoleValue;
+      }
+
+      const editNodeObject = {
+        role,
+        name,
+        image,
+        title,
+      };
+
+      await new Promise((resolve, _) => {
+        this.http
+          .patch(
+            `https://9b408944-f0c1-4bf9-b0e5-f1fafedd31fd-00-2jngfbqo2ruj7.picard.replit.dev/edit-user/${this.actualNode.id}`,
+            editNodeObject
+          )
+          .subscribe({
+            next: (data: any) => {
+              console.log(data);
+              this.ngOnInit();
+              this.editDialog = false;
+            },
+            error: (error: any) => {
+              console.log(error);
+            },
+          });
       });
-      this.iterateEvaluationStatus(this.actualData);
-      this.visible = false;
-      this.actualParentName = '';
-      this.imgValue = '';
-      this.nameValue = '';
-      this.titleValue = '';
+
+      this.ngOnInit();
+    }
+  }
+
+  async createChildNode() {
+
+    if (this.imgValue && this.nameValue && this.titleValue) {
+      if (this.actualParenteNode) {
+        const newUser = {
+          styleClass: '',
+          expanded: true,
+          type: 'person',
+          data: {
+            sector: this.activeItem?.label,
+            role:
+              this.actualParenteNode.data.role === 'analista'
+                ? 'estagiario'
+                : 'analista',
+            image: `${this.imgValue}`,
+            name: `${this.nameValue}`,
+            title: `${this.titleValue}`,
+            evaluationStatus: false,
+          },
+          children: [],
+        };
+
+        this.actualParenteNode.children?.push(newUser);
+        this.visible = false;
+        this.actualParentName = '';
+        this.imgValue = '';
+        this.nameValue = '';
+        this.titleValue = '';
+        this.iterateEvaluationStatus(this.actualData);
+
+        await new Promise((resolve, _) => {
+          this.http
+            .post(
+              'https://9b408944-f0c1-4bf9-b0e5-f1fafedd31fd-00-2jngfbqo2ruj7.picard.replit.dev/create-user',
+              {
+                id: this.actualParenteNode.id,
+                data: newUser,
+              }
+            )
+            .subscribe({
+              next: (data: any) => {
+                this.data = data;
+              },
+              error: (error: any) => {
+                console.log('DEU BOMBA CRIANDO USUARIO');
+              },
+            });
+        });
+      }
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erro',
+        detail: 'Preencha todos os campos',
+      });
+    }
+  }
+
+  async deleteNode() {
+    if (this.actualParenteNode) {
+      await new Promise((resolve, _) => {
+        this.http
+          .delete(
+            `https://9b408944-f0c1-4bf9-b0e5-f1fafedd31fd-00-2jngfbqo2ruj7.picard.replit.dev/delete-user/${this.actualParenteNode.id}`
+          )
+          .subscribe({
+            next: (data: any) => {
+              console.log('DEU BOM DELETANDO USUARIO');
+              this.visible = false;
+              this.ngOnInit();
+            },
+            error: (error: any) => {
+              console.log('DEU BOMBA DELETANDO USUARIO');
+            },
+          });
+      });
     }
   }
 
   handleCollaboratorClick(node: TreeNode): void {
     if (node.data.role === 'estagiario') {
-      this.showError('Estagiário não podem ter subordinados!');
+      this.actualNode = node;
+      this.actualNodeName = node.data.name;
+      this.visibleInterns = true;
     } else {
+      this.actualNode = node;
+      this.actualNodeName = node.data.name;
       this.actualParenteNode = node;
       this.actualParentName = node.data.name;
       this.showDialog();
@@ -166,9 +289,7 @@ export class OrgTechComponent implements OnInit {
   }
 
   private iterateEvaluationStatus(nodes: TreeNode[]): void {
-    console.log(nodes);
-
-    if (this.actualData) {
+    if (this.actualData != 'undefined') {
       this.actualData.map((node: any) => {
         this.applyStatus(node);
         if (node.children.length > 0) {
