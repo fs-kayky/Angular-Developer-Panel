@@ -84,7 +84,7 @@ export class OrgTechComponent implements OnInit {
     await new Promise((resolve, _) => {
       this.http
         .get(
-          'https://9b408944-f0c1-4bf9-b0e5-f1fafedd31fd-00-2jngfbqo2ruj7.picard.replit.dev'
+          'https://9b408944-f0c1-4bf9-b0e5-f1fafedd31fd-00-2jngfbqo2ruj7.picard.replit.dev/find-all-users'
         )
         .subscribe({
           next: (data: any) => {
@@ -181,9 +181,15 @@ export class OrgTechComponent implements OnInit {
           )
           .subscribe({
             next: (data: any) => {
-              console.log(data);
-              this.ngOnInit();
-              this.editDialog = false;
+              this.visible = false;
+              this.visibleInterns = false;
+              this.editDialog = false
+              this.data = data
+              if(this.activeItem?.label && this.activeItem['subLabel']) {
+                console.log(this.activeItem['subLabel'])
+                this.getSector(this.activeItem.label, this.activeItem?.['subLabel']);
+              }
+              this.iterateEvaluationStatus(this.actualData);
             },
             error: (error: any) => {
               console.log(error);
@@ -191,7 +197,6 @@ export class OrgTechComponent implements OnInit {
           });
       });
 
-      this.ngOnInit();
     }
   }
 
@@ -237,6 +242,7 @@ export class OrgTechComponent implements OnInit {
             .subscribe({
               next: (data: any) => {
                 this.data = data;
+                this.visible = false;
               },
               error: (error: any) => {
                 console.log('DEU BOMBA CRIANDO USUARIO');
@@ -264,7 +270,9 @@ export class OrgTechComponent implements OnInit {
             next: (data: any) => {
               console.log('DEU BOM DELETANDO USUARIO');
               this.visible = false;
-              this.ngOnInit();
+              this.visibleInterns = false;
+              this.editDialog = false
+              this.data = data
             },
             error: (error: any) => {
               console.log('DEU BOMBA DELETANDO USUARIO');

@@ -63,11 +63,6 @@
 
     <div class="flex justify-content-end gap-2 mt-4">
       <p-button
-        label="Cancelar"
-        severity="secondary"
-        (onClick)="visible = false"
-      />
-      <p-button
       label="Deletar"
       severity="warning"
       (onClick)="deleteNode()"
@@ -131,12 +126,7 @@
     severity="warning"
     (onClick)="deleteNode()"
   />
-    <p-button
-      label="Cancelar"
-      severity="secondary"
-      (onClick)="visible = false"
-    />
-    <p-button label="Criar" (onClick)="editNode()" />
+    <p-button label="Editar" (onClick)="editNode()" />
   </div>
 </p-dialog>
 
