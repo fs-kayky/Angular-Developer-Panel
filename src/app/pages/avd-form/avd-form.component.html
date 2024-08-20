@@ -1,92 +1,103 @@
-<div
-  class="flex align-items-center flex-column gap-4 p-7 bg-
-  bg-black-alpha-90"
->
-  <div class="w-5 p-5 card flex flex-column justify-content-around">
-    <div>
-      <h2 class="mb-5">Pergunta 1:</h2>
+<div class="main flex justify-content-center p-6 bg-black-alpha-90">
 
-      <label for="h2" class="teste">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga tempore
-        inventore, iste, illum dolorem ducimus deserunt pariatur fugiat,
-        aspernatur accusamus maxime doloribus! Earum dolores corporis et
-        voluptatum aperiam deleniti sint? Molestiae veniam nulla ipsa a, commodi
-        praesentium tempore sapiente dicta aut magnam sint, repellendus
-        voluptatibus quidem fugiat delectus hic explicabo facilis? At ullam
-        perferendis, error porro blanditiis earum dolorem incidunt. Sunt iure
-        perspiciatis doloremque commodi culpa ab! Amet minima nihil corrupti vel
-        eum doloremque dicta quod alias cumque reprehenderit voluptas est
-        recusandae repellat praesentium dolorem in voluptatem inventore, ratione
-        veniam.</label
-      >
-    </div>
-    <div class="pt-3 flex justify-content-center gap-5 w-full">
-      <div *ngFor="let category of categories; let i = index" class="field-checkbox">
-        <p-radioButton
-        [inputId]="'category-' + i"
-          name="category"
-          [value]="category"
-          [(ngModel)]="selectedCategory"
-        />
-        <label [for]="'category-' + i" class="ml-2">
-          {{ category.name }}
-        </label>
+<div class="cards__container flex flex-column gap-6">
+
+  <div class="card">
+    <div class="card__content">
+      <h2 class="card__title">Pergunta 1</h2>
+      <p class="card__question ">Se você pudesse definir um nível de satisfação para seu ambiente de trabalho, qual seria?</p>
+
+      <div class="card__buttons">
+
+        <div class="select flex gap-4 justify-content-center align-items-center">
+        {{value}}  <p-slider max="10" [(ngModel)]="value" class="w-full" /> 10
       </div>
+
+      </div>
+
     </div>
+
   </div>
 
-  <div class="w-5 p-5 card flex flex-column justify-content-around">
-    <div>
-      <h2 class="mb-5">Pergunta 2:</h2>
+  <div class="card">
+    <div class="card__content">
+      <h2 class="card__title">Pergunta 2</h2>
+      <p class="card__question ">O quão puxada você diria que é sua rotina de trabalho?</p>
 
-      <label for="h2" class="teste">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga tempore
-        inventore, iste, illum dolorem ducimus deserunt pariatur fugiat,
-        aspernatur accusamus maxime doloribus! Earum dolores corporis et
-        voluptatum aperiam deleniti sint? Molestiae veniam nulla ipsa a, commodi
-        praesentium tempore sapiente dicta aut magnam sint, repellendus
-        voluptatibus quidem fugiat delectus hic explicabo facilis? At ullam
-        perferendis, error porro blanditiis earum dolorem incidunt. Sunt iure
-        perspiciatis doloremque commodi culpa ab! Amet minima nihil corrupti vel
-        eum doloremque dicta quod alias cumque reprehenderit voluptas est
-        recusandae repellat praesentium dolorem in voluptatem inventore, ratione
-        veniam.</label
-      >
-    </div>
-    <div class="pt-3 flex justify-content-center gap-5 w-full">
-      <div *ngFor="let category1 of categories; let i = index" class="field-checkbox">
-        <p-radioButton
-          [inputId]="'category1-' + i"
-          name="category1"
-          [value]="category1"
-          [(ngModel)]="selectedCategory1"
-        />
-        <label [for]="'category1-' + i" class="ml-2">
-          {{ category1.name }}
-        </label>
+      <div class="card__buttons">
+
+        <div class="select flex gap-4 justify-content-center align-items-center">
+        {{value2}}  <p-slider max="10" [(ngModel)]="value2" class="w-full" /> 10
       </div>
+
+      </div>
+
     </div>
+
   </div>
 
-  <button (click)="showCategories()">SHOW</button>
+  <div class="card">
+    <div class="card__content">
+      <h2 class="card__title">Pergunta 3</h2>
+      <p class="card__question ">Qual sua avaliação para a estrtura fornecida no escritorio?</p>
 
-  <div class="flex flex-column gap-5">
-    <div class="flex border-1 flex-column">
-      <label for="card" class="text-200 text-3xl"
-        >Digite a sua resenha sobre o Funcionario:
-      </label>
-      <div class="cardteste" id="card">
-        <p-editor [(ngModel)]="text" [style]="{ height: '320px'}" />
+      <div class="card__buttons">
+
+        <p-rating stars="10" [(ngModel)]="value3" [cancel]="false" />  {{value3}}
+
       </div>
+
     </div>
 
-    <div class="">
-      <label for="card" class="text-200 text-3xl"
-        >Digite oq tiver na sua cabeça:
-      </label>
-      <div class="card__teste" id="card">
-        <p-editor [(ngModel)]="text" [style]="{ height: '320px'}" />
-      </div>
-    </div>
+
   </div>
+
+  <div class="card">
+    <div class="card__content">
+      <h2 class="card__title">Pergunta 4</h2>
+      <p class="card__question ">Qual sua satisfação com as bonificações fornecidas?</p>
+
+      <div class="card__buttons">
+
+        <p-rating stars="10" [(ngModel)]="value4" [cancel]="false" /> {{value4}}
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+  <div class="card">
+    <div class="card__content">
+      <h2 class="card__title">Pergunta 5 - Discursiva</h2>
+      <p class="card__question ">Escreva com as suas palavras como é seu relacionamento com seu superior.</p>
+
+      <textarea
+      class="w-10 shadow-2"
+      rows="10"
+      cols="30"
+      [autoResize]="true"
+      pInputTextarea
+      [(ngModel)]="value5">
+    </textarea>
+
+
+    </div>
+
+  </div>
+
+  <div class="card bg-transparent border-none button_display">
+
+    <div class="button__display flex gap-3 align-items-center justify-content-center">
+
+      <p-button size="large" label="Cancelar Avaliação" severity="danger" />
+      <p-button size="large" label="Enviar Avaliação" severity="success" />
+
+    </div>
+
+  </div>
+
+
+
 </div>

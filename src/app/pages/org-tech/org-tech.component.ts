@@ -12,9 +12,8 @@ import { HttpClient } from '@angular/common/http';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { MenuItem } from 'primeng/api';
 import { ITreeNode } from '../../../interfaces/ITreeNode';
-
-const dianaData: TreeNode[] = [];
-
+import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-org-tech',
   standalone: true,
@@ -35,6 +34,8 @@ const dianaData: TreeNode[] = [];
 })
 export class OrgTechComponent implements OnInit {
   private http = inject(HttpClient);
+
+  // Pegar o valor da url e settar o cargo ( active item labal e settar no ng on init) inject router queryparams
 
   data!: ITreeNode[] | [];
 
@@ -58,17 +59,16 @@ export class OrgTechComponent implements OnInit {
   editTitleValue: string = '';
   editRoleValue: string = '';
 
-  constructor(private messageService: MessageService) {}
+  constructor(
+    private messageService: MessageService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   items: MenuItem[] | undefined;
 
   activeItem: MenuItem | undefined;
-
-  onActiveItemChange(event: any) {
-    this.getSector(event?.label, event?.subLabel);
-    this.iterateEvaluationStatus(this.actualData);
-    this.activeItem = event;
-  }
+  sublabel: string = '';
 
   async ngOnInit() {
     this.items = [
@@ -79,7 +79,18 @@ export class OrgTechComponent implements OnInit {
       { label: 'GENTE&GESTAO', icon: 'pi pi-list', subLabel: 'RH' },
     ];
 
-    this.activeItem = this.items[0];
+    this.route.queryParams.subscribe((params) => {
+      if ((typeof params['param1'] === 'undefined')) {
+        this.activeItem = this.items?.[0];
+        return;
+      }
+
+      const teste = this.items?.filter(item => item.label == params['param1'])[0];
+
+      if (teste) {
+        this.activeItem = teste;
+      }
+    });
 
     await new Promise((resolve, _) => {
       this.http
@@ -89,7 +100,7 @@ export class OrgTechComponent implements OnInit {
         .subscribe({
           next: (data: any) => {
             this.data = data;
-            this.getSector('DESENVOLVIMENTO', 'TECNOLOGIA');
+            this.getSector(this.activeItem?.label ?? '', this.activeItem?.['subLabel'] ?? '');
             this.iterateEvaluationStatus(this.actualData);
           },
           error: (error: any) => {
@@ -98,6 +109,13 @@ export class OrgTechComponent implements OnInit {
           },
         });
     });
+  }
+
+  onActiveItemChange(event: any) {
+    this.navigateWithQueryParams(event.label);
+    this.getSector(event?.label, event?.subLabel);
+    this.iterateEvaluationStatus(this.actualData);
+    this.activeItem = event;
   }
 
   private applyStatus(node: TreeNode): void {
@@ -183,11 +201,14 @@ export class OrgTechComponent implements OnInit {
             next: (data: any) => {
               this.visible = false;
               this.visibleInterns = false;
-              this.editDialog = false
-              this.data = data
-              if(this.activeItem?.label && this.activeItem['subLabel']) {
-                console.log(this.activeItem['subLabel'])
-                this.getSector(this.activeItem.label, this.activeItem?.['subLabel']);
+              this.editDialog = false;
+              this.data = data;
+              if (this.activeItem?.label && this.activeItem['subLabel']) {
+                console.log(this.activeItem['subLabel']);
+                this.getSector(
+                  this.activeItem.label,
+                  this.activeItem?.['subLabel']
+                );
               }
               this.iterateEvaluationStatus(this.actualData);
             },
@@ -196,12 +217,10 @@ export class OrgTechComponent implements OnInit {
             },
           });
       });
-
     }
   }
 
   async createChildNode() {
-
     if (this.imgValue && this.nameValue && this.titleValue) {
       if (this.actualParenteNode) {
         const newUser = {
@@ -271,8 +290,8 @@ export class OrgTechComponent implements OnInit {
               console.log('DEU BOM DELETANDO USUARIO');
               this.visible = false;
               this.visibleInterns = false;
-              this.editDialog = false
-              this.data = data
+              this.editDialog = false;
+              this.data = data;
             },
             error: (error: any) => {
               console.log('DEU BOMBA DELETANDO USUARIO');
@@ -312,5 +331,11 @@ export class OrgTechComponent implements OnInit {
         }
       });
     }
+  }
+
+  navigateWithQueryParams(label: string) {
+    this.router.navigate(['/organograma'], {
+      queryParams: { param1: label }
+    });
   }
 }
